@@ -1,4 +1,4 @@
-<!-- chat.html -->
+<!-- chat.ejs -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,11 +6,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat App</title>
+    <style>
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .sender {
+            color: blue;
+        }
+
+        .receiver {
+            color: green;
+        }
+    </style>
 </head>
 <body>
     <div id="chat">
         <div id="messages"></div>
         <form id="messageForm">
+            <input type="hidden" id="receiver" value="ALL"> <!-- Set default receiver to ALL -->
             <input type="text" id="messageInput" autocomplete="off" placeholder="Type your message...">
             <button type="submit">Send</button>
         </form>
@@ -18,14 +32,16 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
-
+        const userId = '<%= user %>';
+        
         document.getElementById('messageForm').addEventListener('submit', event => {
             event.preventDefault();
             const messageInput = document.getElementById('messageInput');
+            const receiver = document.getElementById('receiver').value;
             const message = messageInput.value.trim();
             if (message !== '') {
                 // Emit 'sendMessage' event to the server
-                socket.emit('sendMessage', message);
+                socket.emit('sendMessage', {sender:userId, receiver:receiver, content: message });
                 // Clear the message input field
                 messageInput.value = '';
             }
@@ -36,7 +52,15 @@
             // Display the received message in the chat interface
             const messagesContainer = document.getElementById('messages');
             const messageElement = document.createElement('div');
-            messageElement.textContent = message;
+            // Set class based on sender or receiver
+            messageElement.classList.add('message');
+            if (message.sender === userId) { 
+                // Compare with user ID
+                messageElement.classList.add('sender');
+            } else {
+                messageElement.classList.add('receiver');
+            }
+            messageElement.textContent = `${message.sender}: ${message.content}`;
             messagesContainer.appendChild(messageElement);
         });
     </script>

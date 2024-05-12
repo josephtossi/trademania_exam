@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
 });
 
-// Define a method to validate the password
 userSchema.methods.isValidPassword = async function (password) {
     try {
         return await bcrypt.compare(password, this.password);

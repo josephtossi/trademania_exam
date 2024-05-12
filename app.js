@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const socketIO = require('socket.io');
+const path = require('path');
+
+const authenticateUser = require('./helpers/authMiddleware');
 
 // define routes here
 const authRoutes = require('./routes/authRoutes');
@@ -15,16 +18,20 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Error connecting to MongoDB:', err));
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // front end
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/chat/chat.html');
-});
-app.get('/sign-in', (req, res) => res.sendFile(__dirname + '/views/sign_in/signIn.html'));
 app.get('/sign-up', (req, res) => res.sendFile(__dirname + '/views/sign_up/signUp.html'));
+app.get('/sign-in', (req, res) => res.sendFile(__dirname + '/views/sign_in/signIn.html'));
+app.get('/chat-page', authenticateUser, (req, res) => {
+    const user = req.user;
+    res.render('chat', { user });
+});
 
 app.use('/auth', authRoutes);
 app.use('/chat', chatRoutes);

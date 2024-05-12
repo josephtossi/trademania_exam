@@ -34,8 +34,22 @@
             },
             body: JSON.stringify({ email, password })
         });
+
         const data = await response.json();
-        console.log(data);
+        
+        if (data.token) {
+            console.log(`tpek ${data.token}`)
+            const chatPageResponse = await fetch('/chat-page', {
+                headers: {
+                    'Authorization': `Bearer ${data.token}`
+                }
+            });
+          
+            if (chatPageResponse.status == 200) {
+                console.log(data);
+                // window.location.href = '/chat-page';
+            }
+        }
     } catch (error) {
         console.error('Error signing in:', error);
     }
