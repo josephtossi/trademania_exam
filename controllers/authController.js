@@ -14,7 +14,7 @@ const authController = {
             const newUser = new User({ email, password: hashedPassword });
             await newUser.save();
 
-            res.status(201).json({ message: 'User registered successfully' });
+            res.status(201).json({ message: 'User registered successfully', "userId": newUser._id });
         } catch (error) {
             next(error);
         }
@@ -29,13 +29,14 @@ const authController = {
             if (!isValidPassword) return res.status(401).json({ error: 'Invalid password' });
 
             const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-            res.status(200).json({ message: 'Login successful', token });
+            res.status(200).json({ message: 'Login successful', token, "userId": user._id });
         } catch (error) {
             next(error);
         }
     },
     logout: async (req, res) => {
         // implement later using redis
+        res.status(200).json({ message: 'Logout successful' });
     },
 };
 

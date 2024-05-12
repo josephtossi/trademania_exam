@@ -38,17 +38,13 @@
         const data = await response.json();
         
         if (data.token) {
-            console.log(`tpek ${data.token}`)
-            const chatPageResponse = await fetch('/chat-page', {
+            const chatPageResponse = await fetch(`/chat/chat-history`, {
                 headers: {
                     'Authorization': `Bearer ${data.token}`
                 }
             });
-          
-            if (chatPageResponse.status == 200) {
-                console.log(data);
-                // window.location.href = '/chat-page';
-            }
+
+            console.log(chatPageResponse)
         }
     } catch (error) {
         console.error('Error signing in:', error);

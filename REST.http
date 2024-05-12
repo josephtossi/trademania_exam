@@ -1,0 +1,36 @@
+### register
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "password": "test123455"
+}
+
+### login to account
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "password": "test123455"
+}
+
+### logout
+GET http://localhost:3000/auth/logout
+Content-Type: application/json
+
+### send message to user test
+POST http://localhost:3000/chat/send-message
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjQxMDI4ODZlNzE3Y2I5NzYxM2E2MTciLCJpYXQiOjE3MTU1MzY5MjMsImV4cCI6MTcxNTU0MDUyM30.eE1GR5PQbsYlNxoau46TNEuplSI4TKTjMPKhVP78Tn8
+
+{
+    "receiverId": "6640fe03dc0e9d89dedd0103",
+    "content": "how are you"
+}
+
+### get chat history message
+GET http://localhost:3000/chat/chat-history
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjQwZmUwM2RjMGU5ZDg5ZGVkZDAxMDMiLCJpYXQiOjE3MTU1MzU4MDAsImV4cCI6MTcxNTUzOTQwMH0.eNJHZu--Bmb8XJqIV-7HjBgyS4gNIJq1l_YwF26Fauc

@@ -8,6 +8,6 @@ const chatController = require('../controllers/chatController');
 const authenticateUser = require('../helpers/authMiddleware');
 
 router.post('/send-message', authenticateUser, chatController.sendMessage);
-router.get('/chat-history/:userId', authenticateUser, chatController.getChatHistory);
+router.get('/chat-history', authenticateUser, chatController.getChatHistory);
 
 module.exports = router;
