@@ -35,7 +35,7 @@ const authController = {
         }
     },
     logout: async (req, res) => {
-        // implement later
+        // implement later using redis
     },
 };
 
