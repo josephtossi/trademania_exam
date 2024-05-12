@@ -27,10 +27,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjQxM
 
 {
     "receiverId": "6640fe03dc0e9d89dedd0103",
-    "content": "how are you"
+    "content": "testing"
 }
 
 ### get chat history message
 GET http://localhost:3000/chat/chat-history
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjQwZmUwM2RjMGU5ZDg5ZGVkZDAxMDMiLCJpYXQiOjE3MTU1MzU4MDAsImV4cCI6MTcxNTUzOTQwMH0.eNJHZu--Bmb8XJqIV-7HjBgyS4gNIJq1l_YwF26Fauc
+
+### show file uploaded
+GET http://localhost:3000/chat/uploads/1715538919025-330411690.png
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjQwZmUwM2RjMGU5ZDg5ZGVkZDAxMDMiLCJpYXQiOjE3MTU1MzU4MDAsImV4cCI6MTcxNTUzOTQwMH0.eNJHZu--Bmb8XJqIV-7HjBgyS4gNIJq1l_YwF26Fauc

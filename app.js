@@ -1,4 +1,5 @@
 require('dotenv').config();
+const morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
 const socketIO = require('socket.io');
@@ -16,6 +17,12 @@ const io = socketIO(server);
 
 // access in routes/controllers
 app.io = io;
+
+// log all requests
+app.use(morgan('dev'));
+// enable multiple request types
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
