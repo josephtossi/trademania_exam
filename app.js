@@ -23,6 +23,8 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/chat/chat.html');
 });
+app.get('/sign-in', (req, res) => res.sendFile(__dirname + '/views/sign_in/signIn.html'));
+app.get('/sign-up', (req, res) => res.sendFile(__dirname + '/views/sign_up/signUp.html'));
 
 app.use('/auth', authRoutes);
 app.use('/chat', chatRoutes);
